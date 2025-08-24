@@ -230,7 +230,7 @@ production.sh
 # Application specific ignores
 data.xlsx
 design_web.service
-Jenkins.yml  
+Jenkins.yml
 setup_test_environment.sh
 
 # Test files
@@ -305,3 +305,7 @@ public
 # Temporary folders
 tmp/
 temp/
+
+gunicorn.conf.py
+scripts/
+statics/
