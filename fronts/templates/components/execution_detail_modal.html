@@ -1,0 +1,232 @@
+{% comment %}
+Execution Detail Modal Component
+Modern modal component for displaying execution details with design system integration
+
+Features:
+- Light mode optimized styling
+- Loading states and error handling
+- Accessibility compliance
+- Responsive design
+- Design system integration
+
+Parameters:
+- modal_id: Unique identifier for the modal (default: "executionDetailModal")
+- modal_size: Modal size - "sm", "lg", "xl" (default: "lg")
+{% endcomment %}
+
+{% with modal_id=modal_id|default:"executionDetailModal" %}
+{% with modal_size=modal_size|default:"lg" %}
+
+<div class="modal fade das-modal" 
+     id="{{ modal_id }}"
+     tabindex="-1"
+     aria-labelledby="{{ modal_id }}Label"
+     aria-hidden="true"
+     role="dialog">
+  <div class="modal-dialog modal-{{ modal_size }}">
+    <div class="modal-content das-modal__content">
+      
+      <!-- Modal Header -->
+      <div class="modal-header das-modal__header">
+        <h5 class="modal-title das-modal__title" id="{{ modal_id }}Label">
+          <i class="bi bi-info-circle me-2" aria-hidden="true"></i>
+          Execution Detail
+        </h5>
+        <button type="button"
+                class="btn-close das-modal__close"
+                data-bs-dismiss="modal"
+                aria-label="Close execution detail modal">
+        </button>
+      </div>
+      
+      <!-- Modal Body -->
+      <div class="modal-body das-modal__body">
+        
+        <!-- Loading State -->
+        <div class="das-modal__loading" id="{{ modal_id }}-loading">
+          <div class="text-center py-4">
+            <div class="spinner-border text-primary" role="status" aria-label="Loading execution details">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 text-muted">Loading execution details...</p>
+          </div>
+        </div>
+        
+        <!-- Error State -->
+        <div class="das-modal__error d-none" id="{{ modal_id }}-error">
+          <div class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-triangle me-2" aria-hidden="true"></i>
+            <strong>Error loading execution details.</strong>
+            <p class="mb-0 mt-2">Please try again or contact support if the problem persists.</p>
+          </div>
+        </div>
+        
+        <!-- Content State -->
+        <div class="das-modal__content-body d-none" id="{{ modal_id }}-content">
+          
+          <!-- Execution Status -->
+          <div class="das-modal__section">
+            <h6 class="das-modal__section-title">
+              <i class="bi bi-flag me-2" aria-hidden="true"></i>
+              Status Information
+            </h6>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="das-modal__field">
+                  <label class="das-modal__label">Status:</label>
+                  <span id="modal-status" class="das-modal__value">-</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="das-modal__field">
+                  <label class="das-modal__label">Started At:</label>
+                  <span id="modal-start-at" class="das-modal__value">-</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="das-modal__field">
+                  <label class="das-modal__label">Updated At:</label>
+                  <span id="modal-updated-at" class="das-modal__value">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Build Information -->
+          <div class="das-modal__section">
+            <h6 class="das-modal__section-title">
+              <i class="bi bi-code-square me-2" aria-hidden="true"></i>
+              Build Information
+            </h6>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="das-modal__field">
+                  <label class="das-modal__label">Branch:</label>
+                  <span id="modal-branch" class="das-modal__value">-</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="das-modal__field">
+                  <label class="das-modal__label">Commit:</label>
+                  <span id="modal-commit" class="das-modal__value">-</span>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="das-modal__field">
+                  <label class="das-modal__label">Execution Path:</label>
+                  <span id="modal-path" class="das-modal__value">-</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="das-modal__field">
+                  <label class="das-modal__label">Build Number:</label>
+                  <span id="modal-buildnumber" class="das-modal__value">-</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="das-modal__field">
+                  <label class="das-modal__label">Log File:</label>
+                  <span id="modal-logfile" class="das-modal__value">-</span>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="das-modal__field">
+                  <label class="das-modal__label">Repository:</label>
+                  <span id="modal-repository" class="das-modal__value">
+                    <a href="#" 
+                       id="modal-repository-link"
+                       target="_blank"
+                       class="text-decoration-none d-none"
+                       rel="noopener noreferrer">
+                      <i class="bi bi-box-arrow-up-right me-1" aria-hidden="true"></i>
+                      <span id="modal-repository-name">-</span>
+                    </a>
+                    <span id="modal-repository-empty" class="text-muted">-</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Ownership Information -->
+          <div class="das-modal__section">
+            <h6 class="das-modal__section-title">
+              <i class="bi bi-people me-2" aria-hidden="true"></i>
+              Ownership
+            </h6>
+            <div class="das-modal__field">
+              <label class="das-modal__label">Owner(s):</label>
+              <ul id="modal-owner" class="das-modal__owner-list">
+                <li class="text-muted">-</li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Log File Access -->
+          <div class="das-modal__section">
+            <h6 class="das-modal__section-title">
+              <i class="bi bi-file-text me-2" aria-hidden="true"></i>
+              Log File Access
+            </h6>
+            <div class="das-modal__field">
+              <label class="das-modal__label">Download Log:</label>
+              <div id="modal-logfileurl" class="das-modal__value">
+                <a href="#"
+                   id="modal-logfile-link"
+                   target="_blank"
+                   class="btn btn-outline-primary btn-sm d-none"
+                   rel="noopener noreferrer">
+                  <i class="bi bi-download me-1" aria-hidden="true"></i>
+                  Download Log File
+                </a>
+                <span id="modal-logfile-empty" class="text-muted">No log file available</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Log Content -->
+          <div class="das-modal__section">
+            <h6 class="das-modal__section-title">
+              <i class="bi bi-terminal me-2" aria-hidden="true"></i>
+              Analyzed Content
+            </h6>
+            <div class="das-modal__log-container">
+              <pre class="das-modal__log"
+                   id="modal-log"
+                   role="log"
+                   aria-label="Execution log content">Loading...</pre>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <!-- Modal Footer -->
+      <div class="modal-footer das-modal__footer">
+        {% if user.is_authenticated and user.is_staff %}
+          <!-- Admin Actions Section -->
+          <div class="me-auto">
+            <a href="#" 
+               id="modal-admin-link"
+               class="btn btn-outline-primary d-none"
+               target="_blank"
+               rel="noopener noreferrer">
+              <i class="bi bi-gear me-1" aria-hidden="true"></i>
+              Admin Page
+            </a>
+          </div>
+        {% endif %}
+        <button type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+          <i class="bi bi-x-circle me-1" aria-hidden="true"></i>
+          Close
+        </button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{% endwith %}
+{% endwith %}

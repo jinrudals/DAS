@@ -1,0 +1,72 @@
+{% comment %}
+Enhanced Project Card Component
+Modern project card with design system integration
+
+Parameters:
+- project: Project object with name and optional description
+- show_stats: Boolean to show project statistics (default: false)
+- card_size: Size variant - "sm", "base", "lg" (default: "base")
+- css_classes: Additional CSS classes (default: "")
+{% endcomment %}
+
+{% with show_stats=show_stats|default:False %}
+{% with card_size=card_size|default:"base" %}
+{% with css_classes=css_classes|default:"" %}
+
+<article class="project-card project-card--{{ card_size }} {{ css_classes }}" 
+         role="article"
+         aria-labelledby="project-{{ project.id }}-title">
+  
+  <a href="/project/{{ project.name }}" 
+     class="project-card__link"
+     aria-describedby="project-{{ project.id }}-desc">
+    
+    <div class="project-card__header">
+      <div class="project-card__icon">
+        <i class="bi bi-folder-fill" aria-hidden="true"></i>
+      </div>
+      <h3 id="project-{{ project.id }}-title" class="project-card__title">
+        {{ project.name }}
+      </h3>
+    </div>
+    
+    <div class="project-card__content">
+      {% if project.description %}
+        <p id="project-{{ project.id }}-desc" class="project-card__description">
+          {{ project.description|truncatechars:80 }}
+        </p>
+      {% else %}
+        <p id="project-{{ project.id }}-desc" class="project-card__description text-muted">
+          Design automation project
+        </p>
+      {% endif %}
+      
+      {% if show_stats %}
+        <div class="project-card__stats">
+          <div class="stat-item">
+            <i class="bi bi-list-check me-1" aria-hidden="true"></i>
+            <span class="stat-value">{{ project.criteria_count|default:0 }}</span>
+            <span class="stat-label">Criteria</span>
+          </div>
+          <div class="stat-item">
+            <i class="bi bi-bullseye me-1" aria-hidden="true"></i>
+            <span class="stat-value">{{ project.targets_count|default:0 }}</span>
+            <span class="stat-label">Targets</span>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="project-card__footer">
+      <span class="project-card__cta">
+        <i class="bi bi-arrow-right me-1" aria-hidden="true"></i>
+        View Details
+      </span>
+    </div>
+    
+  </a>
+</article>
+
+{% endwith %}
+{% endwith %}
+{% endwith %}

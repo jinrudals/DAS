@@ -1,0 +1,97 @@
+/* =============== Wrapper =============== */
+.table-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+    height: 60vh;
+}
+
+/* =============== Table Base =============== */
+.status-table {
+    table-layout: fixed;
+    min-width: 100%;
+    border-collapse: collapse;
+}
+
+.status-table th,
+.status-table td {
+    white-space: nowrap;
+    border: 1px solid #dee2e6;
+    padding: 0.3rem 0.5rem;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* =============== Sticky Header =============== */
+.status-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    z-index: 10;
+}
+
+/* =============== Sticky Left Columns =============== */
+th.sticky-col,
+td.sticky-col {
+    position: sticky;
+    left: 0;
+    background: #fff;
+    z-index: 5;
+    border-right: 1px solid #dee2e6;
+}
+
+th.sticky-col-2,
+td.sticky-col-2 {
+    position: sticky;
+    left: 300px;
+    /* first column width */
+    background: #fff;
+    z-index: 5;
+    border-right: 1px solid #dee2e6;
+}
+
+/* Sticky header + left column overlapping cell */
+.status-table thead th.sticky-col {
+    z-index: 15;
+}
+
+.status-table thead th.sticky-col-2 {
+    z-index: 15;
+}
+
+/* =============== Column Widths =============== */
+.status-table col.col-target {
+    width: 300px;
+}
+
+.status-table col.col-owner {
+    width: 250px;
+}
+
+.status-table col.col-criterion {
+    width: 150px;
+}
+
+
+/* =============== Modal Text Wrapping =============== */
+#modal-path {
+    word-break: break-all;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+/* =============== Jenkins Styling =============== */
+.jenkins-clickable {
+    cursor: pointer;
+    background-color: #f8f9fa;
+}
+
+.jenkins-controls {
+    display: none;
+}
+
+/* =============== Tiny Text =============== */
+.tiniest-text {
+    font-size: 0.70rem;
+    line-height: 1.0;
+}

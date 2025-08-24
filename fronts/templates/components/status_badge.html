@@ -1,0 +1,82 @@
+{% comment %}
+Status Badge Component
+Displays execution status with consistent styling and accessibility
+
+Parameters:
+- execution: Execution object with status and optional percent_display
+- link_modal: Boolean to enable modal link (default: true)
+- css_classes: Additional CSS classes (default: "")
+- size: Badge size variant - "sm", "base", "lg" (default: "base")
+{% endcomment %}
+
+{% if execution %}
+  {% with link_modal=link_modal|default:True %}
+    {% with css_classes=css_classes|default:"" %}
+      {% with size=size|default:"base" %}
+        
+        {% if link_modal %}
+          <a href="#" 
+             class="text-decoration-none" 
+             data-bs-toggle="modal" 
+             data-bs-target="#executionDetailModal" 
+             data-pk="{{ execution.id }}"
+             data-target-name="{{ execution.target.name|default:'' }}"
+             data-repository-name="{{ execution.target.repository.name|default:'' }}"
+             data-repository-url="{{ execution.target.repository.url|default:'' }}"
+             aria-label="View details for {{ execution.status }} execution">
+        {% endif %}
+
+        <span class="badge status-badge status-badge--{{ size }} {% if criterion.display_type == 'numeric_value' %}status-badge--numeric{% endif %} {{ css_classes }}"
+              data-status="{{ execution.status }}"
+              role="img"
+              aria-label="Status: {{ execution.status }}{% if execution.percent_display %} - {{ execution.percent_display }}{% endif %}">
+          
+          {% if execution.percent_display %}
+            <i class="bi bi-check-circle-fill me-1" aria-hidden="true"></i>
+            {{ execution.percent_display }}
+          {% else %}
+            {% if execution.status == 'SUCCESS' %}
+              <i class="bi bi-check-circle-fill me-1" aria-hidden="true"></i>
+            {% elif execution.status == 'FAILED' %}
+              <i class="bi bi-x-circle-fill me-1" aria-hidden="true"></i>
+            {% elif execution.status == 'PENDING' %}
+              <i class="bi bi-clock-fill me-1" aria-hidden="true"></i>
+            {% elif execution.status == 'RUNNING' %}
+              <i class="bi bi-arrow-repeat me-1" aria-hidden="true"></i>
+            {% elif execution.status == 'REQUESTED' %}
+              <i class="bi bi-hourglass-split me-1" aria-hidden="true"></i>
+            {% elif execution.status == 'WAITING' %}
+              <i class="bi bi-pause-circle-fill me-1" aria-hidden="true"></i>
+            {% else %}
+              <i class="bi bi-question-circle-fill me-1" aria-hidden="true"></i>
+            {% endif %}
+            
+            {% if execution.display_value %}
+              {{ execution.display_value }}
+              {% comment %}Show log_content below for FAILED status{% endcomment %}
+              {% if execution.status == 'FAILED' and execution.log_content %}
+                <br><small class="log-preview">{{ execution.log_content|truncatechars:50 }}</small>
+              {% endif %}
+            {% elif execution.status == 'FAILED' and execution.log_content %}
+              {{ execution.log_content|default:"FAILED" }}
+            {% else %}
+              {{ execution.status }}
+            {% endif %}
+          {% endif %}
+        </span>
+
+        {% if link_modal %}
+          </a>
+        {% endif %}
+
+      {% endwith %}
+    {% endwith %}
+  {% endwith %}
+{% else %}
+  <span class="badge bg-secondary" 
+        role="img" 
+        aria-label="No execution data">
+    <i class="bi bi-dash me-1" aria-hidden="true"></i>
+    N/A
+  </span>
+{% endif %}

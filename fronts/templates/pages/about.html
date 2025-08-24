@@ -1,0 +1,145 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}About - Design Automation System{% endblock %}
+
+{% block custom_css %}
+  <!-- Component CSS -->
+  <link rel="stylesheet" href="{% static 'css/components/cards.css' %}">
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="{% static 'css/page/index.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+  <!-- Page Header -->
+  <header class="dashboard-header" role="banner">
+    <div class="container-fluid">
+      <h1 class="dashboard-title">
+        <i class="bi bi-info-circle me-2" aria-hidden="true"></i>
+        About DAS
+      </h1>
+      <p class="dashboard-subtitle">
+        Learn about the Design Automation System platform
+      </p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="dashboard-main" role="main">
+    <div class="container-fluid">
+      
+      <!-- About Section -->
+      <section class="welcome-section" aria-labelledby="about-title">
+        <div class="welcome-card">
+          <div class="welcome-card__icon">
+            <i class="bi bi-cpu-fill" aria-hidden="true"></i>
+          </div>
+          <h2 id="about-title" class="welcome-card__title">Design Automation System</h2>
+          <div class="welcome-card__content">
+            <p>
+              The <strong>Design Automation System (DAS)</strong> is a comprehensive platform for 
+              design workflow automation, regression testing management, and verification 
+              infrastructure for semiconductor design teams.
+            </p>
+            
+            <h3 class="mt-4 mb-3">Key Features</h3>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2" aria-hidden="true"></i>
+                <strong>Automated Regression Testing</strong> - Continuous verification of design changes
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2" aria-hidden="true"></i>
+                <strong>Project Management</strong> - Centralized tracking of design projects and targets
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2" aria-hidden="true"></i>
+                <strong>Jenkins Integration</strong> - Seamless CI/CD pipeline integration for automated workflows
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2" aria-hidden="true"></i>
+                <strong>Real-time Monitoring</strong> - Live status tracking and execution monitoring
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2" aria-hidden="true"></i>
+                <strong>Advanced Filtering</strong> - Powerful search and filter capabilities for large datasets
+              </li>
+            </ul>
+
+            <h3 class="mt-4 mb-3">Technology Stack</h3>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="tech-item">
+                  <i class="bi bi-gear-fill text-primary me-2" aria-hidden="true"></i>
+                  <strong>Backend:</strong> Django with PostgreSQL
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="tech-item">
+                  <i class="bi bi-palette-fill text-primary me-2" aria-hidden="true"></i>
+                  <strong>Frontend:</strong> Bootstrap 5 with modern JavaScript
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="tech-item">
+                  <i class="bi bi-cloud-fill text-primary me-2" aria-hidden="true"></i>
+                  <strong>CI/CD:</strong> Jenkins integration
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="tech-item">
+                  <i class="bi bi-shield-check text-primary me-2" aria-hidden="true"></i>
+                  <strong>Authentication:</strong> Django user management
+                </div>
+              </div>
+            </div>
+
+            <h3 class="mt-4 mb-3">System Architecture</h3>
+            <p>
+              DAS follows a modular architecture with separate applications for different concerns:
+            </p>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <i class="bi bi-diagram-3 text-info me-2" aria-hidden="true"></i>
+                <strong>Modeling:</strong> Core data models for projects, targets, criteria, and executions
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-display text-info me-2" aria-hidden="true"></i>
+                <strong>Fronts:</strong> User interface and web presentation layer
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-person-check text-info me-2" aria-hidden="true"></i>
+                <strong>Accounts:</strong> User authentication and profile management
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="welcome-section" aria-labelledby="contact-title">
+        <div class="welcome-card">
+          <div class="welcome-card__icon">
+            <i class="bi bi-envelope-fill" aria-hidden="true"></i>
+          </div>
+          <h2 id="contact-title" class="welcome-card__title">Contact & Support</h2>
+          <div class="welcome-card__content">
+            <p>
+              For technical support, feature requests, or questions about the Design Automation System,
+              please contact the engineering team or your project administrator.
+            </p>
+            
+            <div class="mt-3">
+              <i class="bi bi-building text-muted me-2" aria-hidden="true"></i>
+              <strong>Design Team</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </div>
+  </main>
+</div>
+{% endblock %}

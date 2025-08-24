@@ -1,0 +1,410 @@
+/**
+ * Table Components
+ * Execution status tables with sticky columns and responsive design
+ */
+
+/* === Base Table Styling === */
+.status-table {
+  /* Use design tokens for consistent styling */
+  border: var(--table-border-width) solid var(--table-border-color);
+  border-radius: var(--border-radius-lg);
+  background: var(--color-white);
+  font-size: var(--font-size-sm);
+  width: 100%;
+  min-width: 600px;
+  margin-bottom: 0;
+}
+
+/* === Table Wrapper === */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  background: var(--color-white);
+  position: relative;
+}
+
+/* === Sticky Columns === */
+.sticky-col,
+.sticky-col-2 {
+  position: sticky;
+  z-index: 10;
+  background: var(--color-gray-50);
+  border-right: 2px solid var(--table-border-color);
+}
+
+.sticky-col {
+  left: 0;
+  min-width: 150px;
+  max-width: 200px;
+}
+
+.sticky-col-2 {
+  left: 150px;
+  min-width: 120px;
+  max-width: 150px;
+}
+
+/* === Column Sizing === */
+.col-target {
+  width: 150px;
+  min-width: 150px;
+}
+
+.col-owner {
+  width: 120px;
+  min-width: 120px;
+}
+
+.col-criterion {
+  width: 120px;
+  min-width: 120px;
+  max-width: 150px;
+}
+
+/* === Table Header === */
+.status-table thead th {
+  background: var(--color-gray-100);
+  border-bottom: 2px solid var(--table-border-color);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-800);
+  padding: var(--spacing-3);
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+}
+
+.status-table thead th:first-child {
+  text-align: left;
+}
+
+.status-table thead th:nth-child(2) {
+  text-align: left;
+}
+
+/* === Sorting Indicators === */
+.sortable-text {
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  user-select: none;
+  display: inline-block;
+  padding-right: var(--spacing-4); /* Space for sort indicator */
+}
+
+.sortable-text:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.sortable-text:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Sort direction indicators */
+.sortable-text::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.3;
+  transition: opacity var(--transition-fast);
+  font-family: 'Bootstrap Icons';
+  font-size: var(--font-size-sm);
+}
+
+.sortable-text:hover::after {
+  opacity: 0.6;
+}
+
+.sortable-text.sort-asc::after {
+  content: '↑';
+  opacity: 1;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.sortable-text.sort-desc::after {
+  content: '↓';
+  opacity: 1;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+/* Disabled sorting state for Jenkins mode */
+.sortable-text.sorting-disabled {
+  opacity: 0.5;
+  cursor: default !important;
+}
+
+.sortable-text.sorting-disabled:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sortable-text.sorting-disabled::after {
+  opacity: 0.2;
+}
+
+/* === Table Body === */
+.status-table tbody td {
+  padding: var(--spacing-2) var(--spacing-3);
+  border-bottom: 1px solid var(--table-border-color);
+  border-right: 1px solid var(--table-border-color);
+  vertical-align: middle;
+  text-align: center;
+  word-wrap: break-word;
+  max-width: 150px;
+}
+
+.status-table tbody td:first-child,
+.status-table tbody td:nth-child(2) {
+  text-align: left;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+}
+
+/* === Row Hover Effects === */
+.status-table tbody tr:hover {
+  background-color: var(--color-primary-light);
+  transition: background-color var(--transition-fast);
+}
+
+.status-table tbody tr:hover .sticky-col,
+.status-table tbody tr:hover .sticky-col-2 {
+  background-color: var(--color-primary-light);
+}
+
+/* === Filter Dropdown === */
+.filter-dropdown {
+  font-size: var(--font-size-xs);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-sm);
+  margin-left: var(--spacing-2);
+}
+
+.dropdown-menu {
+  min-width: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: var(--table-border-width) solid var(--table-border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.target-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.form-check-full {
+  margin: 0;
+  padding: var(--spacing-1) var(--spacing-3);
+  transition: background-color var(--transition-fast);
+}
+
+.form-check-full:hover {
+  background-color: var(--color-gray-100);
+}
+
+.form-check-full .form-check-input {
+  margin-top: 0;
+}
+
+/* === Status Badge Integration === */
+.status-table .status-badge {
+  font-size: var(--font-size-xs);
+  padding: var(--spacing-1) var(--spacing-2);
+  white-space: nowrap;
+}
+
+/* === Empty State === */
+.text-muted {
+  color: var(--color-gray-500);
+  font-style: italic;
+}
+
+/* === Responsive Design === */
+@media (max-width: 1200px) {
+  .col-criterion {
+    width: 100px;
+    min-width: 100px;
+  }
+  
+  .status-table {
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (max-width: 992px) {
+  .sticky-col {
+    min-width: 120px;
+  }
+  
+  .sticky-col-2 {
+    left: 120px;
+    min-width: 100px;
+  }
+  
+  .col-target {
+    width: 120px;
+    min-width: 120px;
+  }
+  
+  .col-owner {
+    width: 100px;
+    min-width: 100px;
+  }
+  
+  .col-criterion {
+    width: 90px;
+    min-width: 90px;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    border-radius: var(--border-radius-sm);
+  }
+  
+  .status-table {
+    min-width: 500px;
+    font-size: var(--font-size-xs);
+  }
+  
+  .sticky-col,
+  .sticky-col-2 {
+    font-size: var(--font-size-xs);
+  }
+  
+  .status-table thead th,
+  .status-table tbody td {
+    padding: var(--spacing-1) var(--spacing-2);
+  }
+  
+  .filter-dropdown {
+    padding: var(--spacing-05) var(--spacing-1);
+  }
+}
+
+/* === Print Styles === */
+@media print {
+  .status-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10px;
+  }
+  
+  .table-wrapper {
+    overflow: visible;
+    box-shadow: none;
+  }
+  
+  .sticky-col,
+  .sticky-col-2 {
+    position: static;
+    background: white;
+  }
+  
+  .filter-dropdown,
+  .sortable-text::after {
+    display: none;
+  }
+  
+  .status-table thead th,
+  .status-table tbody td {
+    border: 1px solid black;
+    padding: 4px;
+  }
+}
+
+/* === Jenkins Mode Styling === */
+/* Clickable cells in Jenkins mode */
+.jenkins-clickable {
+  cursor: pointer !important;
+  transition: background-color var(--transition-fast);
+  position: relative;
+}
+
+.jenkins-clickable:hover {
+  background-color: var(--color-primary-light) !important;
+}
+
+.jenkins-clickable:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+/* Row-clickable cells in Jenkins mode (fix for DAS-6) */
+.jenkins-row-clickable {
+  cursor: pointer !important;
+  transition: background-color var(--transition-fast);
+  position: relative;
+}
+
+.jenkins-row-clickable:hover {
+  background-color: var(--color-warning-light) !important;
+}
+
+.jenkins-row-clickable:focus {
+  outline: 2px solid var(--color-warning);
+  outline-offset: -2px;
+}
+
+/* Selected cells in Jenkins mode */
+.table-success {
+  background-color: var(--color-success-light) !important;
+  border-color: var(--color-success) !important;
+}
+
+/* === Accessibility Enhancements === */
+.status-table [role="columnheader"] {
+  cursor: pointer;
+}
+
+.status-table [role="columnheader"]:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.status-table [aria-sort="ascending"] .sortable-text::after {
+  content: "↑";
+  font-weight: bold;
+  color: var(--color-primary);
+  opacity: 1;
+}
+
+.status-table [aria-sort="descending"] .sortable-text::after {
+  content: "↓";
+  font-weight: bold;
+  color: var(--color-primary);
+  opacity: 1;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .status-table,
+  .status-table thead th,
+  .status-table tbody td {
+    border: 2px solid currentColor;
+  }
+  
+  .sticky-col,
+  .sticky-col-2 {
+    background: white;
+    border-right: 3px solid currentColor;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .status-table tbody tr,
+  .sortable-text,
+  .form-check-full {
+    transition: none;
+  }
+}

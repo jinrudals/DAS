@@ -1,0 +1,308 @@
+
+/**
+ * Dashboard Index Page - Light Mode Optimized
+ * Modern dashboard layout using design tokens
+ */
+
+/* === Dashboard Container === */
+.dashboard-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--color-gray-50), var(--color-white)) !important;
+}
+
+/* === Dashboard Main === */
+.dashboard-main {
+  padding-top: var(--spacing-6);
+}
+
+/* === Dashboard Header === */
+.dashboard-header {
+  background: var(--color-white);
+  border-bottom: var(--table-border-width) solid var(--table-border-color);
+  padding: var(--spacing-6) 0;
+  margin-bottom: var(--spacing-6);
+}
+
+.dashboard-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-800);
+  margin-bottom: var(--spacing-2);
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-600);
+  margin: 0;
+  font-weight: var(--font-weight-normal);
+}
+
+/* === Welcome Section === */
+.welcome-section {
+  margin-bottom: var(--spacing-8);
+}
+
+.welcome-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-3);
+  padding-top: var(--spacing-3);
+  border-top: 1px solid var(--color-primary);
+}
+
+.welcome-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-size: var(--font-size-sm);
+}
+
+.welcome-stats .stat-value {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+}
+
+.welcome-stats .stat-label {
+  color: var(--color-gray-600);
+}
+
+/* === Projects Section === */
+.projects-section {
+  margin-bottom: var(--spacing-8);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--spacing-6);
+}
+
+.section-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-800);
+  margin-bottom: var(--spacing-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-description {
+  font-size: var(--font-size-base);
+  color: var(--color-gray-600);
+  margin: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* === Projects Grid === */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-6);
+  padding: 0 var(--spacing-4);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* === Empty State === */
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-8) var(--spacing-4);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.empty-state__icon {
+  font-size: var(--font-size-4xl);
+  color: var(--color-gray-400);
+  margin-bottom: var(--spacing-4);
+}
+
+.empty-state__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-2);
+}
+
+.empty-state__description {
+  font-size: var(--font-size-base);
+  color: var(--color-gray-600);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+/* === Authentication Section === */
+.auth-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.auth-card {
+  background: var(--color-white);
+  border: var(--table-border-width) solid var(--table-border-color);
+  border-radius: var(--border-radius-2xl);
+  padding: var(--spacing-8);
+  text-align: center;
+  max-width: 500px;
+  box-shadow: var(--shadow-lg);
+}
+
+.auth-card__icon {
+  font-size: var(--font-size-4xl);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-4);
+}
+
+.auth-card__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-800);
+  margin-bottom: var(--spacing-3);
+}
+
+.auth-card__description {
+  font-size: var(--font-size-base);
+  color: var(--color-gray-600);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-6);
+}
+
+.auth-actions {
+  display: flex;
+  gap: var(--spacing-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.auth-actions .btn {
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-3) var(--spacing-6);
+  border-radius: var(--border-radius-lg);
+  transition: all var(--transition-fast);
+}
+
+.auth-actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: var(--spacing-4) 0;
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .dashboard-title {
+    font-size: var(--font-size-2xl);
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-1);
+  }
+  
+  .dashboard-subtitle {
+    font-size: var(--font-size-base);
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+    padding: 0 var(--spacing-3);
+  }
+  
+  .welcome-stats {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  
+  .section-title {
+    font-size: var(--font-size-xl);
+    flex-direction: column;
+    gap: var(--spacing-1);
+  }
+  
+  .auth-card {
+    padding: var(--spacing-6);
+    margin: 0 var(--spacing-3);
+  }
+  
+  .auth-actions {
+    flex-direction: column;
+  }
+  
+  .auth-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .welcome-card {
+    margin: 0 var(--spacing-2);
+  }
+  
+  .section-title {
+    font-size: var(--font-size-lg);
+  }
+  
+  .auth-card {
+    padding: var(--spacing-4);
+  }
+}
+
+/* === Button Enhancements === */
+.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.btn-outline-primary {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* === Focus States for Accessibility === */
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* === Print Styles === */
+@media print {
+  .dashboard-container {
+    background: white;
+  }
+  
+  .auth-actions,
+  .projects-grid {
+    display: none;
+  }
+  
+  .welcome-card,
+  .auth-card {
+    border: 1px solid black;
+    box-shadow: none;
+  }
+}

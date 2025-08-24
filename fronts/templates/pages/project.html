@@ -1,0 +1,10 @@
+{% extends "layouts/base.html" %}
+{% block title %}Project{% endblock %}
+{% block content %}
+    <h1 id="Title">Projects</h1>
+    <div class="d-flex flex-wrap justify-content-center gap-3 w-100 px-5 py-3">
+        {% for project in projects %}
+            {% include 'components/project-card.html' %}
+        {% endfor %}
+    </div>
+{% endblock %}

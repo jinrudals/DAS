@@ -1,0 +1,195 @@
+/**
+ * Design Tokens - DAS Frontend Design System
+ * Core design variables for consistent theming and spacing
+ */
+
+:root {
+  /* === Color Palette === */
+  
+  /* Primary Colors */
+  --color-primary: #0066cc;
+  --color-primary-hover: #0056b3;
+  --color-primary-light: #e6f3ff;
+  --color-primary-dark: #004499;
+  
+  /* Semantic Colors */
+  --color-success: #28a745;
+  --color-success-hover: #218838;
+  --color-success-light: #d4edda;
+  
+  --color-warning: #ffc107;
+  --color-warning-hover: #e0a800;
+  --color-warning-light: #fff3cd;
+  
+  --color-danger: #dc3545;
+  --color-danger-hover: #c82333;
+  --color-danger-light: #f8d7da;
+  
+  --color-info: #17a2b8;
+  --color-info-hover: #138496;
+  --color-info-light: #d1ecf1;
+  
+  /* Neutral Colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-100: #f8f9fa;
+  --color-gray-200: #e9ecef;
+  --color-gray-300: #dee2e6;
+  --color-gray-400: #ced4da;
+  --color-gray-500: #6c757d;
+  --color-gray-600: #495057;
+  --color-gray-700: #343a40;
+  --color-gray-800: #212529;
+  --color-gray-900: #1a1a1a;
+  
+  /* === Status-Specific Colors === */
+  --status-success: var(--color-success);
+  --status-failed: var(--color-danger);
+  --status-pending: var(--color-warning);
+  --status-running: var(--color-info);
+  --status-requested: var(--color-gray-500);
+  --status-waiting: var(--color-gray-400);
+  --status-unknown: var(--color-gray-600);
+  
+  /* === Typography === */
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-monospace: "SFMono-Regular", Consolas, "Liberation Mono", "Courier New", monospace;
+  
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* === Spacing Scale === */
+  --spacing-0: 0;
+  --spacing-px: 1px;
+  --spacing-0-5: 0.125rem;  /* 2px */
+  --spacing-1: 0.25rem;     /* 4px */
+  --spacing-1-5: 0.375rem;  /* 6px */
+  --spacing-2: 0.5rem;      /* 8px */
+  --spacing-2-5: 0.625rem;  /* 10px */
+  --spacing-3: 0.75rem;     /* 12px */
+  --spacing-3-5: 0.875rem;  /* 14px */
+  --spacing-4: 1rem;        /* 16px */
+  --spacing-5: 1.25rem;     /* 20px */
+  --spacing-6: 1.5rem;      /* 24px */
+  --spacing-8: 2rem;        /* 32px */
+  --spacing-10: 2.5rem;     /* 40px */
+  --spacing-12: 3rem;       /* 48px */
+  --spacing-16: 4rem;       /* 64px */
+  --spacing-20: 5rem;       /* 80px */
+  --spacing-24: 6rem;       /* 96px */
+  
+  /* === Layout Variables === */
+  --container-max-width: 1200px;
+  --sidebar-width: 280px;
+  --header-height: 64px;
+  --navbar-height: 56px;
+  
+  /* === Border Radius === */
+  --border-radius-none: 0;
+  --border-radius-sm: 0.125rem;    /* 2px */
+  --border-radius-base: 0.25rem;   /* 4px */
+  --border-radius-md: 0.375rem;    /* 6px */
+  --border-radius-lg: 0.5rem;      /* 8px */
+  --border-radius-xl: 0.75rem;     /* 12px */
+  --border-radius-2xl: 1rem;       /* 16px */
+  --border-radius-full: 9999px;
+  
+  /* === Shadows === */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* === Z-Index Scale === */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+  
+  /* === Transitions === */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+  
+  /* === Component-Specific Variables === */
+  
+  /* Tables */
+  --table-border-color: var(--color-gray-300);
+  --table-border-width: 1px;
+  --table-cell-padding-x: var(--spacing-3);
+  --table-cell-padding-y: var(--spacing-2-5);
+  --table-header-bg: var(--color-gray-100);
+  --table-hover-bg: var(--color-gray-50);
+  --table-stripe-bg: var(--color-gray-50);
+  
+  /* Buttons */
+  --btn-padding-x: var(--spacing-4);
+  --btn-padding-y: var(--spacing-2);
+  --btn-border-radius: var(--border-radius-base);
+  --btn-font-size: var(--font-size-sm);
+  --btn-font-weight: var(--font-weight-medium);
+  
+  /* Forms */
+  --form-control-border-color: var(--color-gray-300);
+  --form-control-border-radius: var(--border-radius-base);
+  --form-control-padding-x: var(--spacing-3);
+  --form-control-padding-y: var(--spacing-2);
+  --form-control-font-size: var(--font-size-base);
+  
+  /* Modals */
+  --modal-backdrop-bg: rgba(0, 0, 0, 0.5);
+  --modal-border-radius: var(--border-radius-lg);
+  --modal-padding: var(--spacing-6);
+  
+  /* Badges */
+  --badge-padding-x: var(--spacing-2);
+  --badge-padding-y: var(--spacing-1);
+  --badge-font-size: var(--font-size-xs);
+  --badge-font-weight: var(--font-weight-medium);
+  --badge-border-radius: var(--border-radius-base);
+}
+
+/* === Light Mode Optimization === */
+/* Force light mode colors - optimized for light theme */
+:root {
+  /* Ensure light backgrounds */
+  --background-primary: var(--color-white);
+  --background-secondary: var(--color-gray-50);
+  --background-tertiary: var(--color-gray-100);
+  
+  /* Light text colors */
+  --text-primary: var(--color-gray-800);
+  --text-secondary: var(--color-gray-600);
+  --text-muted: var(--color-gray-500);
+}
+
+/* === Reduced Motion Support === */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+  }
+}

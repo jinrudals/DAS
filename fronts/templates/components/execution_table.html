@@ -1,0 +1,179 @@
+{% comment %}
+Execution Table Component
+Reusable table component for displaying execution status across targets and criteria
+
+Parameters:
+- criteria: List of criteria objects to display as columns
+- targets: List of target objects to display as rows
+- execution_map: Dictionary mapping target.id + criterion.id to executions
+- show_filter: Boolean to show target filter dropdown (default: false)
+- table_id: Unique identifier for the table (default: "execution-table")
+- css_classes: Additional CSS classes (default: "")
+{% endcomment %}
+
+{% load utils %}
+
+{% with show_filter=show_filter|default:False %}
+{% with table_id=table_id|default:"execution-table" %}
+{% with css_classes=css_classes|default:"" %}
+
+<div class="table-wrapper {{ css_classes }}" role="region" aria-label="Execution status table">
+    <table class="status-table table table-bordered table-hover align-middle" 
+           id="{{ table_id }}"
+           role="table"
+           aria-label="Execution status for targets and criteria">
+        
+        <!-- Column Groups for Accessibility -->
+        <colgroup>
+            <col class="col-target" aria-label="Target names">
+            <col class="col-owner" aria-label="Target owners">
+            {% for criterion in criteria %}
+                <col class="col-criterion" aria-label="Criterion {{ criterion.name }}">
+            {% endfor %}
+        </colgroup>
+        
+        <!-- Table Header -->
+        <thead class="table-light">
+            <tr role="row">
+                <th class="sticky-col" 
+                    data-criterion="__row__"
+                    scope="col"
+                    aria-sort="none"
+                    tabindex="0"
+                    role="columnheader">
+                    <span class="header-text sortable-text" 
+                          role="button"
+                          tabindex="0"
+                          aria-label="Sort by target name"
+                          title="Click to sort by target name">
+                        Target
+                    </span>
+                    {% if show_filter %}
+                        <div class="dropdown d-inline ms-2">
+                            <button class="btn btn-outline-secondary dropdown-toggle filter-dropdown" 
+                                    type="button" 
+                                    data-bs-toggle="dropdown" 
+                                    data-bs-auto-close="outside" 
+                                    aria-expanded="false"
+                                    aria-label="Filter targets">
+                                <i class="bi bi-funnel-fill" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu p-0" role="menu">
+                                <div class="p-2 border-bottom">
+                                    <div class="form-check m-0">
+                                        <label class="form-check-label d-flex align-items-center w-100">
+                                            <input class="form-check-input me-2 select-all" 
+                                                   type="checkbox" 
+                                                   checked
+                                                   aria-label="Select all targets">
+                                            <span class="flex-grow-1">Select All</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="target-list" role="group" aria-label="Target selection">
+                                    {% for target in targets %}
+                                        <div class="form-check form-check-full px-3 py-1">
+                                            <label class="form-check-label d-flex align-items-center w-100 m-0">
+                                                <input class="form-check-input me-2 target-checkbox" 
+                                                       type="checkbox" 
+                                                       value="{{ target.name }}" 
+                                                       checked
+                                                       aria-label="Include {{ target.name }}">
+                                                <span class="flex-grow-1 text-truncate">{{ target.name }}</span>
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="border-top p-2 text-end">
+                                    <button class="btn btn-sm btn-primary apply-filter" 
+                                            type="button"
+                                            aria-label="Apply target filter">
+                                        Apply
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </th>
+                
+                <th class="sticky-col-2" 
+                    data-criterion="__owner__"
+                    scope="col"
+                    aria-sort="none"
+                    tabindex="0"
+                    role="columnheader">
+                    <span class="header-text sortable-text" 
+                          role="button"
+                          tabindex="0"
+                          aria-label="Sort by owner"
+                          title="Click to sort by owner">
+                        Owner
+                    </span>
+                </th>
+                
+                {% for criterion in criteria %}
+                    <th data-criterion="{{ criterion.name }}"
+                        scope="col"
+                        aria-sort="none"
+                        tabindex="0"
+                        role="columnheader"
+                        aria-label="Criterion {{ criterion.name }}">
+                        <span class="header-text sortable-text" 
+                              role="button"
+                              tabindex="0"
+                              aria-label="Sort by {{ criterion.name }}"
+                              title="Click to sort by {{ criterion.name }}">
+                            {{ criterion.name }}
+                        </span>
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        
+        <!-- Table Body -->
+        <tbody>
+            {% for target in targets %}
+                <tr role="row" data-target-name="{{ target.name }}">
+                    <td class="sticky-col" 
+                        data-target="{{ target.name }}" 
+                        data-criterion="__row__"
+                        scope="row"
+                        role="gridcell">
+                        {{ target.name }}
+                    </td>
+                    
+                    <td class="sticky-col-2" 
+                        data-target="{{ target.name }}" 
+                        data-criterion="__owner__"
+                        data-sort="{{ target.criterion_targets.all|first_owner_username|default:'—' }}"
+                        role="gridcell">
+                        {{ target.criterion_targets.all|first_owner_username|default:"—" }}
+                    </td>
+                    
+                    {% for criterion in criteria %}
+                        {% lookup execution_map target.id criterion.id as executions %}
+                        <td data-target="{{ target.name }}" 
+                            data-criterion="{{ criterion.name }}"
+                            {% if executions %}data-sort="{{ executions.0.status }}"{% else %}data-sort="N/A"{% endif %}
+                            role="gridcell"
+                            aria-label="Status for {{ target.name }} - {{ criterion.name }}">
+                            {% if executions %}
+                                {% for exe in executions %}
+                                    <div class="mb-1">
+                                        {% include 'components/status_badge.html' with execution=exe criterion=criterion size="sm" %}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="text-muted" aria-label="No data available">N/A</div>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endwith %}
+{% endwith %}
+{% endwith %}

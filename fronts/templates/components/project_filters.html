@@ -1,0 +1,131 @@
+{% comment %}
+Project Filter Form Component
+Reusable filter form for project views
+
+Parameters:
+- view_type: Current view type (IP, HPDF, DFTed)
+- available_branches: List of available branches
+- selected_branch: Currently selected branch
+- selected_date: Currently selected date
+- form_id: Custom form ID (default: "filters")
+- css_classes: Additional CSS classes (default: "")
+{% endcomment %}
+
+{% with form_id=form_id|default:"filters" %}
+{% with css_classes=css_classes|default:"" %}
+
+<form method="get" 
+      id="{{ form_id }}" 
+      class="project-filters {{ css_classes }}" 
+      role="form" 
+      aria-label="Project Filters">
+  
+  <div class="row g-3">
+    <!-- Type Filter -->
+    <div class="col-md-4">
+      <label for="{{ form_id }}-type" class="form-label">
+        <i class="bi bi-funnel me-1" aria-hidden="true"></i>
+        Type
+      </label>
+      <select name="type" 
+              id="{{ form_id }}-type"
+              class="form-select" 
+              onchange="this.form.submit()"
+              aria-describedby="{{ form_id }}-type-help">
+        <option value="IP" {% if view_type == "IP" %}selected{% endif %}>IP</option>
+        <option value="HPDF" {% if view_type == "HPDF" %}selected{% endif %}>HPDF</option>
+        <option value="DFTed" {% if view_type == "DFTed" %}selected{% endif %}>DFTed</option>
+      </select>
+      <div id="{{ form_id }}-type-help" class="form-text">
+        Select the project type to view
+      </div>
+    </div>
+
+    <!-- Branch Filter -->
+    <div class="col-md-4">
+      <label for="{{ form_id }}-branch" class="form-label">
+        <i class="bi bi-git me-1" aria-hidden="true"></i>
+        Branch
+      </label>
+      <select name="branch"
+              id="{{ form_id }}-branch"
+              class="form-select"
+              onchange="this.form.submit()"
+              {% if view_type == "IP" %}disabled{% endif %}
+              aria-describedby="{{ form_id }}-branch-help">
+        {% if view_type == "IP" %}
+          <option value="STABLE">STABLE</option>
+        {% else %}
+          {% for branch in available_branches %}
+            <option value="{{ branch }}" 
+                    {% if selected_branch == branch %}selected{% endif %}>
+              {{ branch }}
+            </option>
+          {% endfor %}
+        {% endif %}
+      </select>
+      <div id="{{ form_id }}-branch-help" class="form-text">
+        {% if view_type == "IP" %}
+          Branch is fixed to STABLE for IP type
+        {% else %}
+          Select the branch to filter by
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Date Filter -->
+    <div class="col-md-4">
+      <label for="{{ form_id }}-date" class="form-label">
+        <i class="bi bi-calendar3 me-1" aria-hidden="true"></i>
+        Date
+      </label>
+      <input type="date"
+             name="date"
+             id="{{ form_id }}-date"
+             class="form-control"
+             value="{{ selected_date|default:"" }}"
+             onchange="this.form.submit()"
+             aria-describedby="{{ form_id }}-date-help">
+      <div id="{{ form_id }}-date-help" class="form-text">
+        Filter by execution date
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Filter Actions -->
+  <div class="filter-actions mt-3">
+    <div class="d-flex gap-2 align-items-center">
+      <button type="submit" 
+              class="btn btn-primary btn-sm">
+        <i class="bi bi-search me-1" aria-hidden="true"></i>
+        Apply Filters
+      </button>
+      
+      <a href="?" 
+         class="btn btn-outline-secondary btn-sm"
+         aria-label="Clear all filters">
+        <i class="bi bi-x-circle me-1" aria-hidden="true"></i>
+        Clear
+      </a>
+      
+      <div class="ms-auto text-muted small">
+        <i class="bi bi-info-circle me-1" aria-hidden="true"></i>
+        Filters auto-apply on change
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen Reader Status -->
+  <div id="{{ form_id }}-status" 
+       class="sr-only" 
+       aria-live="polite" 
+       aria-atomic="true">
+    Current filters: {{ view_type }} type
+    {% if view_type != "IP" %}, {{ selected_branch }} branch{% endif %}
+    {% if selected_date %}, date {{ selected_date }}{% endif %}
+  </div>
+
+</form>
+
+{% endwith %}
+{% endwith %}

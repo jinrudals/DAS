@@ -1,0 +1,186 @@
+/**
+ * Form Components
+ * Consistent form styling using design tokens
+ */
+
+/* === Project Filters === */
+.project-filters {
+  background: var(--color-gray-50);
+  border: var(--table-border-width) solid var(--table-border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.project-filters .form-label {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-2);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.project-filters .form-select,
+.project-filters .form-control {
+  border: var(--table-border-width) solid var(--form-control-border-color);
+  border-radius: var(--form-control-border-radius);
+  padding: var(--form-control-padding-y) var(--form-control-padding-x);
+  font-size: var(--form-control-font-size);
+  transition: all var(--transition-fast);
+}
+
+.project-filters .form-select:focus,
+.project-filters .form-control:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.2rem rgba(var(--color-primary), 0.25);
+  outline: none;
+}
+
+.project-filters .form-select:disabled {
+  background-color: var(--color-gray-200);
+  color: var(--color-gray-500);
+  cursor: not-allowed;
+}
+
+.project-filters .form-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+  margin-top: var(--spacing-1);
+}
+
+/* === Filter Actions === */
+.filter-actions {
+  border-top: 1px solid var(--table-border-color);
+  padding-top: var(--spacing-3);
+}
+
+.filter-actions .btn {
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  border-radius: var(--btn-border-radius);
+  transition: all var(--transition-fast);
+}
+
+.filter-actions .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* === Form Control Enhancements === */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25);
+}
+
+.form-control:invalid,
+.form-select:invalid {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* === Accessibility Enhancements === */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Focus indicators */
+.form-control:focus-visible,
+.form-select:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* === Jenkins Controls === */
+.jenkins-controls {
+  background: var(--color-info-light);
+  border: var(--table-border-width) solid var(--color-info);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-3);
+  margin-bottom: var(--spacing-3);
+}
+
+.jenkins-controls .form-label {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-1);
+  margin-right: var(--spacing-2);
+}
+
+.jenkins-controls input {
+  border: 1px solid var(--color-info);
+  border-radius: var(--border-radius-base);
+  padding: var(--spacing-1-5) var(--spacing-2);
+  margin-right: var(--spacing-2);
+}
+
+.jenkins-controls .btn {
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-1-5) var(--spacing-3);
+  margin-right: var(--spacing-2);
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .project-filters {
+    padding: var(--spacing-3);
+  }
+  
+  .project-filters .row.g-3 {
+    --bs-gutter-x: 1rem;
+  }
+  
+  .filter-actions .d-flex {
+    flex-direction: column;
+    gap: var(--spacing-2);
+    align-items: flex-start !important;
+  }
+  
+  .filter-actions .ms-auto {
+    margin-left: 0 !important;
+    margin-top: var(--spacing-2);
+  }
+}
+
+/* === Light Mode Optimization === */
+/* Ensure light backgrounds for forms */
+.project-filters {
+  background: var(--color-white) !important;
+  border-color: var(--color-gray-300) !important;
+}
+
+.project-filters .form-label {
+  color: var(--color-gray-700) !important;
+}
+
+.project-filters .form-select,
+.project-filters .form-control {
+  background-color: var(--color-white) !important;
+  border-color: var(--color-gray-300) !important;
+  color: var(--color-gray-800) !important;
+}
+
+/* === Print Styles === */
+@media print {
+  .project-filters,
+  .jenkins-controls {
+    border: 1px solid black;
+    background: white;
+    box-shadow: none;
+  }
+  
+  .filter-actions {
+    display: none;
+  }
+}

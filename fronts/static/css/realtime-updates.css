@@ -1,0 +1,220 @@
+/**
+ * Real-time Updates CSS
+ * Styles for WebSocket-powered real-time execution updates
+ */
+
+/* Cell update animations */
+.cell-updated {
+  animation: cellPulse 2s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes cellPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.4);
+  }
+  25% {
+    box-shadow: 0 0 0 10px rgba(13, 110, 253, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(13, 110, 253, 0.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+  }
+}
+
+/* Success status animation */
+.status-success.cell-updated {
+  animation: successPulse 2s ease-in-out;
+}
+
+@keyframes successPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(25, 135, 84, 0.4);
+  }
+  25% {
+    box-shadow: 0 0 0 10px rgba(25, 135, 84, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(25, 135, 84, 0.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(25, 135, 84, 0);
+  }
+}
+
+/* Failed status animation */
+.status-failed.cell-updated {
+  animation: failedPulse 2s ease-in-out;
+}
+
+@keyframes failedPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+  }
+  25% {
+    box-shadow: 0 0 0 10px rgba(220, 53, 69, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(220, 53, 69, 0.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+  }
+}
+
+/* Running status animation */
+.status-running.cell-updated {
+  animation: runningPulse 2s ease-in-out;
+}
+
+@keyframes runningPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4);
+  }
+  25% {
+    box-shadow: 0 0 0 10px rgba(255, 193, 7, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(255, 193, 7, 0.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+  }
+}
+
+/* WebSocket connection status indicator */
+.websocket-status {
+  font-size: 0.75rem !important;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.websocket-status.bg-success {
+  background-color: #198754 !important;
+}
+
+.websocket-status.bg-warning {
+  background-color: #ffc107 !important;
+  color: #000 !important;
+}
+
+/* Toast notification positioning */
+.toast-container {
+  z-index: 1055 !important;
+}
+
+/* Ensure toasts are visible above other content */
+.toast {
+  min-width: 300px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.toast .toast-body {
+  padding: 0.75rem;
+}
+
+.toast .fw-bold {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.toast .small {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+/* Enhanced execution matrix styles for real-time updates */
+.execution-cell {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.execution-cell:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Status-specific cell styles */
+.execution-cell.status-success {
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+}
+
+.execution-cell.status-failed {
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
+
+.execution-cell.status-running {
+  background-color: #fff3cd;
+  border-color: #ffecb5;
+}
+
+.execution-cell.status-pending {
+  background-color: #cff4fc;
+  border-color: #b6effb;
+}
+
+.execution-cell.status-requested {
+  background-color: #e2e3e5;
+  border-color: #d3d6db;
+}
+
+/* Build info and branch info styling */
+.build-info {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  font-family: monospace;
+}
+
+.branch-info {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* Loading states */
+.loading-pulse {
+  animation: loadingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes loadingPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .websocket-status {
+    top: 5px !important;
+    right: 5px !important;
+    font-size: 0.7rem !important;
+  }
+  
+  .toast {
+    min-width: 250px;
+  }
+  
+  @keyframes cellPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.4);
+    }
+    25% {
+      box-shadow: 0 0 0 5px rgba(13, 110, 253, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(13, 110, 253, 0.05);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+    }
+  }
+}

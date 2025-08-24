@@ -1,0 +1,38 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load django_bootstrap5 %}
+{% load i18n %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-8">
+            <h4>{% trans 'Change Profile' %}</h4>
+
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-success">{% trans 'Update Profile' %}</button>
+                    <a href="{% url 'accounts:change_password_profile' %}" class="btn btn-primary">{% trans 'Change Password' %}</a>
+                </div>
+            </form>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{% trans 'Current Information' %}</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>{% trans 'Email' %}:</strong> {{ user.email }}</p>
+                    <p><strong>{% trans 'Name' %}:</strong> {{ user.name|default:"Not set" }}</p>
+                    <p><strong>{% trans 'Username' %}:</strong> {{ user.username }}</p>
+                    <p><strong>{% trans 'Team' %}:</strong> {{ user.team.name|default:"No team" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

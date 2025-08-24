@@ -1,0 +1,104 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}Design Automation System{% endblock %}
+
+{% block custom_css %}
+  <!-- Component CSS -->
+  <link rel="stylesheet" href="{% static 'css/components/cards.css' %}">
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="{% static 'css/page/index.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+  <!-- Main Content -->
+  <main class="dashboard-main" role="main">
+    <div class="container-fluid">
+      
+      <!-- Welcome Section -->
+      <section class="welcome-section" aria-labelledby="welcome-title">
+        <div class="welcome-card">
+          <div class="welcome-card__icon">
+            <i class="bi bi-cpu-fill" aria-hidden="true"></i>
+          </div>
+          <h2 id="welcome-title" class="welcome-card__title">Welcome to DAS</h2>
+          <div class="welcome-card__content">
+            <p>
+              <strong>Design Automation System</strong> for semiconductor design teams.
+              Monitor regression test results, track execution status, and manage design verification workflows.
+            </p>
+            
+            {% if user.is_authenticated %}
+              <p class="text-muted">
+                <i class="bi bi-arrow-down me-1" aria-hidden="true"></i>
+                Browse your projects below to view detailed execution status and manage test runs.
+              </p>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      {% if user.is_authenticated %}
+        <section class="projects-section" aria-labelledby="projects-title">
+          <div class="section-header">
+            <h2 id="projects-title" class="section-title">
+              <i class="bi bi-collection me-2" aria-hidden="true"></i>
+              Your Projects
+            </h2>
+            <p class="section-description">
+              Select a project to view detailed execution status and manage test runs
+            </p>
+          </div>
+          
+          {% if projects %}
+            <div class="projects-grid" role="grid" aria-label="Project cards">
+              {% for project in projects %}
+                {% include 'components/project-card.html' with show_stats=True %}
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="empty-state" role="region" aria-label="No projects available">
+              <div class="empty-state__icon">
+                <i class="bi bi-folder-x" aria-hidden="true"></i>
+              </div>
+              <h3 class="empty-state__title">No Projects Available</h3>
+              <p class="empty-state__description">
+                Contact your administrator to get access to design projects.
+              </p>
+            </div>
+          {% endif %}
+        </section>
+      {% else %}
+        <!-- Unauthenticated State -->
+        <section class="auth-section" aria-labelledby="auth-title">
+          <div class="auth-card">
+            <div class="auth-card__icon">
+              <i class="bi bi-shield-lock" aria-hidden="true"></i>
+            </div>
+            <h2 id="auth-title" class="auth-card__title">Authentication Required</h2>
+            <p class="auth-card__description">
+              Please sign in with your credentials to access the design automation system.
+            </p>
+            <div class="auth-actions">
+              <a href="{% url 'accounts:login' %}" 
+                 class="btn btn-primary btn-lg">
+                <i class="bi bi-box-arrow-in-right me-2" aria-hidden="true"></i>
+                Sign In
+              </a>
+              <a href="{% url 'accounts:register' %}" 
+                 class="btn btn-outline-primary btn-lg">
+                <i class="bi bi-person-plus me-2" aria-hidden="true"></i>
+                Create Account
+              </a>
+            </div>
+          </div>
+        </section>
+      {% endif %}
+      
+    </div>
+  </main>
+</div>
+{% endblock %}
