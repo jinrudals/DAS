@@ -1,0 +1,55 @@
+[database]
+
+[database.production]
+host = "localhost"
+[database.development]
+engine = "django.db.backends.sqlite3"
+name = "db.sqlite3"
+
+[database.test]
+engine = "django.db.backends.sqlite3"
+name = ":memory:"
+
+[base]
+ALLOWED_HOSTS = ['*']
+
+[logging]
+version = 1
+disable_existing_loggers = true
+
+[logging.formatters.default]
+format = "[%(asctime)s ] %(name)s L#%(lineno)d [%(levelname)s] %(message)s"
+datefmt = "%Y-%m-%d %H:%M:%S"
+
+[logging.handlers.console]
+class = "logging.StreamHandler"
+formatter = "default"
+level = "INFO"
+
+[logging.handlers.file]
+class = "logging.FileHandler"
+filename = "myapp.log"
+formatter = "default"
+level = "DEBUG"
+
+[logging.root]
+handlers = ["console", "file"]
+level = "WARNING"
+
+[logging.loggers.django]
+handlers = ["console", "file"]
+level = "INFO"
+propagate = false
+
+[logging.loggers.fronts]
+handlers = ["console", "file"]
+level = "DEBUG"
+propagate = false
+
+[jenkins]
+URL = "http://192.128.1.90:9999/"
+TOKEN = "designteam"
+JOB = "job/bos_soc_design/job/n1b0/job/n1b0_ws/job/automation/job/runner"
+# Set to true when Jenkins is not available (development/testing mode)
+# All Jenkins requests will be treated as successful
+test_mode = false
