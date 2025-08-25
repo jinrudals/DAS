@@ -9,6 +9,6 @@ psycopg[binary]==3.2.6
 uvicorn==0.34.0
 gunicorn==23.0.0
 requests==2.32.3
-channels==4.1.0
+channels==4.2.2
 channels-redis==4.3.0
 websockets==15.0.1
